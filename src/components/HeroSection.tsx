@@ -43,8 +43,21 @@ const HeroSection: React.FC = () => {
             <a href="#apply" className="btn-primary">
               Apply Now
             </a>
-            <a href="#services" className="btn-outline">
-              Learn More
+          </div>
+
+          <div className="animate-fade-in mt-10">
+            <a
+              href="https://t.me/CabaretManagement"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center text-accent-purple hover:text-white transition-colors"
+            >
+              <img
+                src="/telegram.svg"
+                alt="Telegram"
+                className="w-12 h-12 mb-2"
+              />
+              <span className="text-sm">Reach Us On Telegram</span>
             </a>
           </div>
 
