@@ -14,7 +14,7 @@ const HeroSection: React.FC = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover opacity-30"
       >
-        <source src="/video_test.mp4" type="video/mp4" />
+        <source src="/video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div className="absolute z-0">

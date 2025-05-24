@@ -15,19 +15,17 @@ const TeamMember: React.FC<TeamMemberProps> = ({
   imageUrl,
 }) => {
   return (
-    <div className="bg-background-light rounded-xl overflow-hidden transition-all hover:shadow-xl hover:shadow-accent-purple/10">
-      <div className="h-64 relative overflow-hidden">
+    <div className="bg-background-light rounded-xl overflow-hidden transition-all hover:shadow-xl hover:shadow-accent-purple/10 flex flex-col items-center text-center p-6">
+      <div className="w-32 h-32 rounded-full overflow-hidden shadow-md mb-4">
         <img
           src={imageUrl}
           alt={name}
-          className="w-full h-full object-cover object-center transition-transform hover:scale-105"
+          className="w-full h-full object-cover object-center"
         />
       </div>
-      <div className="p-6">
-        <h4 className="text-xl font-bold mb-1">{name}</h4>
-        <p className="text-accent-purple mb-3">{role}</p>
-        <p className="text-text-secondary">{bio}</p>
-      </div>
+      <h4 className="text-xl font-bold mb-1">{name}</h4>
+      <p className="text-accent-purple mb-3">{role}</p>
+      <p className="text-text-secondary text-sm">{bio}</p>
     </div>
   );
 };
@@ -41,8 +39,7 @@ const AboutSection: React.FC = () => {
       As CEO, Mitch leads with innovation, integrity, and an obsession for results. His mission is to build the most creator-centric agency in the industry, one that delivers not just growth, but freedom, clarity, and long-term success.
       Under Mitch’s leadership, Inferno isn’t just helping creators make money, it’s helping them make a mark.
       `,
-      imageUrl:
-        "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      imageUrl: "/ceo.jpg",
     },
     {
       name: "Trystan Miles",
