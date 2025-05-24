@@ -12,7 +12,7 @@ const HeroSection: React.FC = () => {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-30"
+        className="absolute inset-0 w-full h-full object-cover opacity-35"
       >
         <source src="/video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -34,7 +34,7 @@ const HeroSection: React.FC = () => {
             Career With Elite Management
           </h1>
 
-          <p className="animate-fade-in text-xl md:text-2xl text-text-secondary mb-10 max-w-3xl mx-auto">
+          <p className="animate-fade-in text-xl md:text-2xl text-text-secondary mb-10 max-w-3xl mx-auto font-black">
             Join the agency that's helped creators increase their earnings by up
             to 500%. We handle the business, you create the content.
           </p>

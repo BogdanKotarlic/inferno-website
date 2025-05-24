@@ -2,39 +2,65 @@ import React, { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 
 const ApplicationCTA: React.FC = () => {
-  const [formStep, setFormStep] = useState(0);
   const [formData, setFormData] = useState({
-    name: "",
+    instagram: "",
     email: "",
-    platform: "",
-    followers: "",
-    experience: "",
-    goals: "",
+    income: "",
+    subs: "",
+    invitedBy: "",
+    telegram: "",
   });
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-    }, 1500);
+  const submitToAirtable = async () => {
+    const res = await fetch(
+      "https://api.airtable.com/v0/appZ57oHkxygjxP2t/Leads",
+      {
+        method: "POST",
+        headers: {
+          Authorization:
+            "Bearer patMw58sUAUu5MXaL.a45f23e0af4541edaac651286ae315a05f70e84d815674aa35dafc9bd5f70728",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fields: {
+            fldmxBmlwnpqa0T1p: formData.instagram,
+            fldZfKiDechvnjYr5: formData.email,
+            fldSMqTI72cUdH9cW: parseFloat(formData.income),
+            fldWgEUeaiQAtj5ya: parseFloat(formData.subs),
+            fldIXqHE4m8fEAdKW: formData.invitedBy,
+            fldgXFUF8a0vkbEiu: formData.telegram,
+          },
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      console.error(await res.json());
+      throw new Error("Failed to submit to Airtable");
+    }
   };
 
-  const nextStep = () => setFormStep((prev) => prev + 1);
-  const prevStep = () => setFormStep((prev) => prev - 1);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+      await submitToAirtable();
+      setSubmitted(true);
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -45,7 +71,6 @@ const ApplicationCTA: React.FC = () => {
           "linear-gradient(135deg, rgba(13,13,13,1) 0%, rgba(26,26,26,1) 100%)",
       }}
     >
-      {/* Gradient Background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-br from-accent-purple/40 to-transparent"></div>
         <div className="absolute right-0 bottom-0 w-full h-full bg-gradient-to-tl from-accent-magenta/30 to-transparent"></div>
@@ -58,193 +83,148 @@ const ApplicationCTA: React.FC = () => {
               Ready to <span className="gradient-text">Level Up</span> Your
               Creator Career?
             </h2>
-
             <p className="text-text-secondary text-center mb-8 max-w-2xl mx-auto">
               Apply to join Inferno Agency and unlock your full potential as a
-              content creator. Our selective application process ensures we can
-              provide the best service to our creators.
+              content creator.
             </p>
 
             {!submitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
-                {formStep === 0 && (
-                  <div className="space-y-6 animate-fade-in">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div>
-                        <label
-                          htmlFor="name"
-                          className="block text-sm font-medium text-text-primary mb-1"
-                        >
-                          Full Name
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-purple"
-                          placeholder="Your name"
-                        />
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium text-text-primary mb-1"
-                        >
-                          Email Address
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-purple"
-                          placeholder="your.email@example.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div>
-                        <label
-                          htmlFor="platform"
-                          className="block text-sm font-medium text-text-primary mb-1"
-                        >
-                          Current Platform
-                        </label>
-                        <select
-                          id="platform"
-                          name="platform"
-                          value={formData.platform}
-                          onChange={handleChange}
-                          required
-                          className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-purple"
-                        >
-                          <option value="">Select Platform</option>
-                          <option value="OnlyFans">OnlyFans</option>
-                          <option value="Multiple Platforms">
-                            Multiple Platforms
-                          </option>
-                          <option value="Starting Out">Starting Out</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="followers"
-                          className="block text-sm font-medium text-text-primary mb-1"
-                        >
-                          Current Subscriber Count
-                        </label>
-                        <select
-                          id="followers"
-                          name="followers"
-                          value={formData.followers}
-                          onChange={handleChange}
-                          required
-                          className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-purple"
-                        >
-                          <option value="">Select Range</option>
-                          <option value="0-100">0-100 subscribers</option>
-                          <option value="100-500">100-500 subscribers</option>
-                          <option value="500-1000">
-                            500-1,000 subscribers
-                          </option>
-                          <option value="1000-5000">
-                            1,000-5,000 subscribers
-                          </option>
-                          <option value="5000+">5,000+ subscribers</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end">
-                      <button
-                        type="button"
-                        onClick={nextStep}
-                        className="btn-primary inline-flex items-center"
-                      >
-                        Continue <ArrowRight size={18} className="ml-2" />
-                      </button>
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="instagram"
+                      className="block text-sm font-medium text-text-primary mb-1"
+                    >
+                      Instagram Handle
+                    </label>
+                    <input
+                      type="text"
+                      name="instagram"
+                      id="instagram"
+                      value={formData.instagram}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary"
+                      placeholder="@yourhandle"
+                    />
                   </div>
-                )}
-
-                {formStep === 1 && (
-                  <div className="space-y-6 animate-fade-in">
-                    <div>
-                      <label
-                        htmlFor="experience"
-                        className="block text-sm font-medium text-text-primary mb-1"
-                      >
-                        How long have you been creating content?
-                      </label>
-                      <select
-                        id="experience"
-                        name="experience"
-                        value={formData.experience}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-purple"
-                      >
-                        <option value="">Select Experience</option>
-                        <option value="<3 months">Less than 3 months</option>
-                        <option value="3-6 months">3-6 months</option>
-                        <option value="6-12 months">6-12 months</option>
-                        <option value="1-2 years">1-2 years</option>
-                        <option value="2+ years">2+ years</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="goals"
-                        className="block text-sm font-medium text-text-primary mb-1"
-                      >
-                        What are your main goals with content creation?
-                      </label>
-                      <textarea
-                        id="goals"
-                        name="goals"
-                        value={formData.goals}
-                        onChange={handleChange}
-                        required
-                        rows={4}
-                        className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent-purple"
-                        placeholder="Tell us about your content creation goals and what you hope to achieve by working with our agency..."
-                      ></textarea>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <button
-                        type="button"
-                        onClick={prevStep}
-                        className="px-6 py-3 rounded-md font-medium transition-all duration-300 text-text-primary hover:text-white"
-                      >
-                        Back
-                      </button>
-                      <button
-                        type="submit"
-                        className={`btn-primary inline-flex items-center ${
-                          submitting ? "opacity-70 cursor-not-allowed" : ""
-                        }`}
-                        disabled={submitting}
-                      >
-                        {submitting ? (
-                          <>Processing...</>
-                        ) : (
-                          <>
-                            Submit Application{" "}
-                            <ArrowRight size={18} className="ml-2" />
-                          </>
-                        )}
-                      </button>
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-text-primary mb-1"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary"
+                      placeholder="you@example.com"
+                    />
                   </div>
-                )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="income"
+                      className="block text-sm font-medium text-text-primary mb-1"
+                    >
+                      OF Monthly Income ($)
+                    </label>
+                    <input
+                      type="number"
+                      name="income"
+                      id="income"
+                      value={formData.income}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary"
+                      placeholder="e.g. 5000"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="subs"
+                      className="block text-sm font-medium text-text-primary mb-1"
+                    >
+                      New OF Subs Daily
+                    </label>
+                    <input
+                      type="number"
+                      name="subs"
+                      id="subs"
+                      value={formData.subs}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary"
+                      placeholder="e.g. 10"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="invitedBy"
+                      className="block text-sm font-medium text-text-primary mb-1"
+                    >
+                      Invited By
+                    </label>
+                    <input
+                      type="text"
+                      name="invitedBy"
+                      id="invitedBy"
+                      value={formData.invitedBy}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary"
+                      placeholder='e.g. "Chat GPT", "Internet", "We are Artists..."'
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="telegram"
+                      className="block text-sm font-medium text-text-primary mb-1"
+                    >
+                      Telegram Handle
+                    </label>
+                    <input
+                      type="text"
+                      name="telegram"
+                      id="telegram"
+                      value={formData.telegram}
+                      onChange={handleChange}
+                      required
+                      className="w-full bg-background border border-gray-700 rounded-md px-4 py-3 text-text-primary"
+                      placeholder="@yourtelegram"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className={`btn-primary inline-flex items-center ${
+                      submitting ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
+                    disabled={submitting}
+                  >
+                    {submitting ? (
+                      <>Processing...</>
+                    ) : (
+                      <>
+                        Submit Application{" "}
+                        <ArrowRight size={18} className="ml-2" />
+                      </>
+                    )}
+                  </button>
+                </div>
               </form>
             ) : (
               <div className="text-center py-8 animate-fade-in">
@@ -256,7 +236,7 @@ const ApplicationCTA: React.FC = () => {
                 </h3>
                 <p className="text-text-secondary mb-8 max-w-md mx-auto">
                   Thank you for applying to join Inferno Agency. Our team will
-                  review your application and get back to you within 48 hours.
+                  review your application and get back to you within 24 hours.
                 </p>
                 <a href="#home" className="btn-primary inline-block">
                   Return to Home

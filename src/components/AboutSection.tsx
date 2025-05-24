@@ -49,7 +49,7 @@ const AboutSection: React.FC = () => {
       When you work with Trystan, you're not just getting a manager, you're getting a partner who’s all in.
       `,
       imageUrl:
-        "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "/cof.jpeg",
     },
   ];
 
