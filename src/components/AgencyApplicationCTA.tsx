@@ -68,7 +68,7 @@ const AgencyApplicationCTA: React.FC = () => {
   };
 
   return (
-    <div className="relative overflow-hidden py-24">
+    <div className="relative overflow-hidden">
       <div className="container-custom relative z-10">
         <div className="max-w-4xl mx-auto bg-background-light rounded-2xl overflow-hidden shadow-2xl">
           <div className="p-8 sm:p-12">
