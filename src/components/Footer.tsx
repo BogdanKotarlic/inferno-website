@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Mail,
-  Instagram,
-  Twitter,
-  Facebook,
-  ChevronRight,
-  Flame,
-} from "lucide-react";
+import { Instagram, ChevronRight, Flame } from "lucide-react";
+import XIcon from "./icons/XIcon";
 
 const Footer: React.FC = () => {
   return (
@@ -26,28 +20,16 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.instagram.com/inferno_agency_lv/"
                 className="w-10 h-10 rounded-full bg-background-light flex items-center justify-center text-text-secondary hover:text-accent-purple transition-colors"
               >
                 <Instagram size={20} />
               </a>
               <a
-                href="#"
+                href="https://x.com/Inferno__Agency"
                 className="w-10 h-10 rounded-full bg-background-light flex items-center justify-center text-text-secondary hover:text-accent-purple transition-colors"
               >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-background-light flex items-center justify-center text-text-secondary hover:text-accent-purple transition-colors"
-              >
-                <Facebook size={20} />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-background-light flex items-center justify-center text-text-secondary hover:text-accent-purple transition-colors"
-              >
-                <Mail size={20} />
+                <XIcon size={20} />
               </a>
             </div>
           </div>
@@ -113,10 +95,10 @@ const Footer: React.FC = () => {
               team.
             </p>
             <a
-              href="mailto:contact@infernoagency.com"
+              href="mailto:infernomanagementagency@gmail.com"
               className="text-accent-purple hover:underline"
             >
-              contact@infernoagency.com
+              infernomanagementagency@gmail.com
             </a>
             <p className="text-text-secondary mt-4">
               Las Vegas, NV

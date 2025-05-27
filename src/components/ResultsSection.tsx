@@ -36,12 +36,12 @@ const ResultsSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           <StatCard
             icon={<TrendingUp size={32} className="text-white" />}
-            value="380%"
+            value="180%"
             label="Average Growth in First 3 Months"
           />
           <StatCard
             icon={<DollarSign size={32} className="text-white" />}
-            value="$12M+"
+            value="$2M+"
             label="Revenue Generated for Creators"
           />
           <StatCard

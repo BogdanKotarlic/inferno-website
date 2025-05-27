@@ -36,7 +36,7 @@ const HeroSection: React.FC = () => {
 
           <p className="animate-fade-in text-xl md:text-2xl text-text-secondary mb-10 max-w-3xl mx-auto font-black">
             Join the agency that's helped creators increase their earnings by up
-            to 500%. We handle the business, you create the content.
+            to 300%. We handle the business, you create the content.
           </p>
 
           <div className="animate-fade-in flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
