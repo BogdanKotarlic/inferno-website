@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import CreatorApplicationCTA from "./CreatorApplicationCTA";
 import AgencyApplicationCTA from "./AgencyApplicationCTA";
+import CareersApplicationCTA from "./CareersApplicationCTA";
 
 const ApplicationCTA: React.FC = () => {
-  const [tab, setTab] = useState<"creator" | "agency">("creator");
+  const [tab, setTab] = useState<"creator" | "agency" | "careers">("creator");
 
   return (
     <section
@@ -51,12 +52,24 @@ const ApplicationCTA: React.FC = () => {
           >
             Agency
           </button>
+          <button
+            onClick={() => setTab("careers")}
+            className={`px-4 py-2 rounded ${
+              tab === "careers"
+                ? "bg-accent-purple text-white"
+                : "bg-gray-700 text-white/70"
+            }`}
+          >
+            Careers
+          </button>
         </div>
 
         {tab === "creator" ? (
           <CreatorApplicationCTA />
-        ) : (
+        ) : tab === "agency" ? (
           <AgencyApplicationCTA />
+        ) : (
+          <CareersApplicationCTA />
         )}
       </div>
     </section>

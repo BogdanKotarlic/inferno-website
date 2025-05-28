@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 
-const CreatorApplicationCTA: React.FC = () => {
+const CareersApplicationCTA: React.FC = () => {
   const [formData, setFormData] = useState({
-    instagram: "",
+    name: "",
     email: "",
-    income: "",
-    subs: "",
-    invitedBy: "",
     telegram: "",
+    role: "",
+    compensation: "",
+    experience: "",
+    qualities: "",
+    plan: "",
+    basedIn: "",
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -17,14 +20,16 @@ const CreatorApplicationCTA: React.FC = () => {
   const inputStyle =
     "w-full px-4 py-3 bg-background border border-gray-700 rounded-lg text-sm text-text-primary placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent-purple";
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const submitToAirtable = async () => {
     const res = await fetch(
-      "https://api.airtable.com/v0/appZ57oHkxygjxP2t/Leads",
+      "https://api.airtable.com/v0/appZ57oHkxygjxP2t/Employee%20Applications",
       {
         method: "POST",
         headers: {
@@ -34,12 +39,15 @@ const CreatorApplicationCTA: React.FC = () => {
         },
         body: JSON.stringify({
           fields: {
-            fldmxBmlwnpqa0T1p: formData.instagram,
-            fldZfKiDechvnjYr5: formData.email,
-            fldSMqTI72cUdH9cW: parseFloat(formData.income),
-            fldWgEUeaiQAtj5ya: parseFloat(formData.subs),
-            fldIXqHE4m8fEAdKW: formData.invitedBy,
-            fldgXFUF8a0vkbEiu: formData.telegram,
+            fldDECN0yzCocoIY3: formData.name,
+            fld0RfFwy74ECkG2M: formData.email,
+            fldwi0ZAo7cHFWGl4: formData.telegram,
+            fldmYkuxHVhr6f3c1: formData.role,
+            fldyW4MO8pHNjXjSt: parseFloat(formData.compensation),
+            fldC24H0k2VMElS2N: formData.experience,
+            fldzCkthbyrOvflCy: formData.qualities,
+            fldVNsoKyDGWJqJax: formData.plan,
+            fldcRD4MnNIgWNZGU: formData.basedIn,
           },
         }),
       }
@@ -58,7 +66,7 @@ const CreatorApplicationCTA: React.FC = () => {
     try {
       await submitToAirtable();
       setSubmitted(true);
-    } catch (error) {
+    } catch {
       alert("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
@@ -71,22 +79,22 @@ const CreatorApplicationCTA: React.FC = () => {
         <div className="max-w-4xl mx-auto bg-background-light rounded-2xl overflow-hidden shadow-2xl">
           <div className="p-8 sm:p-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
-              Creator Application
+              Careers Application
             </h2>
             <p className="text-text-secondary text-center mb-8 max-w-2xl mx-auto">
-              Apply to join Inferno Agency as a creator and unlock your full
-              potential.
+              Apply to join Inferno Agency in a supporting role and be part of
+              something big.
             </p>
 
             {!submitted ? (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <input
-                    name="instagram"
-                    value={formData.instagram}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="Instagram Handle"
+                    placeholder="Full Name"
                     className={inputStyle}
                   />
                   <input
@@ -101,34 +109,6 @@ const CreatorApplicationCTA: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <input
-                    type="number"
-                    name="income"
-                    value={formData.income}
-                    onChange={handleChange}
-                    required
-                    placeholder="OF Monthly Income ($)"
-                    className={inputStyle}
-                  />
-                  <input
-                    type="number"
-                    name="subs"
-                    value={formData.subs}
-                    onChange={handleChange}
-                    required
-                    placeholder="New OF Subs Daily"
-                    className={inputStyle}
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <input
-                    name="invitedBy"
-                    value={formData.invitedBy}
-                    onChange={handleChange}
-                    required
-                    placeholder='Invited by (e.g. "Chat GPT", "Internet")'
-                    className={inputStyle}
-                  />
-                  <input
                     name="telegram"
                     value={formData.telegram}
                     onChange={handleChange}
@@ -136,7 +116,61 @@ const CreatorApplicationCTA: React.FC = () => {
                     placeholder="Telegram Handle"
                     className={inputStyle}
                   />
+                  <input
+                    name="basedIn"
+                    value={formData.basedIn}
+                    onChange={handleChange}
+                    required
+                    placeholder="Based In (e.g. US, EU)"
+                    className={inputStyle}
+                  />
                 </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <input
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                    required
+                    placeholder="Preferred Role"
+                    className={inputStyle}
+                  />
+                  <input
+                    type="number"
+                    name="compensation"
+                    value={formData.compensation}
+                    onChange={handleChange}
+                    required
+                    placeholder="Desired Compensation (USD)"
+                    className={inputStyle}
+                  />
+                </div>
+                <textarea
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  required
+                  placeholder="Past Experience"
+                  className={inputStyle}
+                  rows={3}
+                />
+                <textarea
+                  name="qualities"
+                  value={formData.qualities}
+                  onChange={handleChange}
+                  required
+                  placeholder="Unique Qualities"
+                  className={inputStyle}
+                  rows={3}
+                />
+                <textarea
+                  name="plan"
+                  value={formData.plan}
+                  onChange={handleChange}
+                  required
+                  placeholder="Revenue Improvement Plan"
+                  className={inputStyle}
+                  rows={3}
+                />
 
                 <div className="flex justify-end">
                   <button
@@ -164,8 +198,8 @@ const CreatorApplicationCTA: React.FC = () => {
                   Application Submitted!
                 </h3>
                 <p className="text-text-secondary mb-8 max-w-md mx-auto">
-                  Thank you for applying to Inferno Agency. Our team will review
-                  your application and respond shortly.
+                  Thank you for applying. We'll review your application and
+                  follow up with you soon.
                 </p>
               </div>
             )}
@@ -176,4 +210,4 @@ const CreatorApplicationCTA: React.FC = () => {
   );
 };
 
-export default CreatorApplicationCTA;
+export default CareersApplicationCTA;
