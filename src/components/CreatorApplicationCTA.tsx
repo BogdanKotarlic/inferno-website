@@ -106,7 +106,7 @@ const CreatorApplicationCTA: React.FC = () => {
                     value={formData.income}
                     onChange={handleChange}
                     required
-                    placeholder="OF Monthly Income ($)"
+                    placeholder="Platform Earnings ($/month)"
                     className={inputStyle}
                   />
                   <input
@@ -115,7 +115,7 @@ const CreatorApplicationCTA: React.FC = () => {
                     value={formData.subs}
                     onChange={handleChange}
                     required
-                    placeholder="New OF Subs Daily"
+                    placeholder="New Paid Subscribers (Daily)"
                     className={inputStyle}
                   />
                 </div>
