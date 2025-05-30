@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://www.instagram.com/inferno_agency_lv/"
+                href="https://www.instagram.com/inferno__agency/"
                 className="w-10 h-10 rounded-full bg-background-light flex items-center justify-center text-text-secondary hover:text-accent-purple transition-colors"
               >
                 <Instagram size={20} />
